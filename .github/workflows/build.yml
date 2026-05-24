@@ -32,11 +32,24 @@ jobs:
 
       - name: Debug wrapper
         run: |
+          echo "=== ROOT ==="
           pwd
           ls -la
-          ls -la gradle
-          ls -la gradle/wrapper
-          cat gradlew
+
+          echo "=== GRADLE ==="
+          ls -la gradle || true
+
+          echo "=== WRAPPER ==="
+          ls -la gradle/wrapper || true
+
+          echo "=== FILE TYPE ==="
+          file gradle/wrapper/gradle-wrapper.jar || true
+
+          echo "=== JAR CONTENT ==="
+          jar tf gradle/wrapper/gradle-wrapper.jar | head -50 || true
+
+          echo "=== GRADLEW ==="
+          cat gradlew || true
 
       - name: Compilar APK
         run: ./gradlew assembleDebug
